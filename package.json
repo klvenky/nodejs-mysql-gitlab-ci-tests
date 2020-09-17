@@ -1,0 +1,18 @@
+{
+  "name": "gitlab-ci-unit-test-integration",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@git.convertcart.com:venkatesh/gitlab-ci-unit-test-integration.git",
+  "author": "venkatesh <venkatesh@convertcart.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^26.4.2"
+  },
+  "scripts": {
+    "test": "jest --coverage"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "mysql": "^2.18.1"
+  }
+}

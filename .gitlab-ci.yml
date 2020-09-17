@@ -1,0 +1,20 @@
+services:
+  - mysql
+
+variables:
+  MYSQL_DATABASE: test_database
+
+stages:
+  - test
+test:
+  stage: test
+  only:
+    refs:
+      - master
+  variables:
+    GIT_STRATEGY: none
+  image: git.convertcart.com:2375/ccart/node-12-alpine-docker:latest
+  script:
+    - yarn config set cache-folder $PWD/.yarn
+    - yarn --production --ignore-optional --no-bin-links --pure-lockfile --prefer-offline
+    - yarn test
