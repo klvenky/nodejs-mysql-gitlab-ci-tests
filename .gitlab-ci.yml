@@ -1,12 +1,11 @@
 services:
-  - mysql
-
+  - percona:8.0
 variables:
   MYSQL_DATABASE: test_database
-  MYSQL_ALLOW_EMPTY_PASSWORD: true
+  MYSQL_ROOT_PASSWORD: root
+
 stages:
   - build
-  - test
 build:
   stage: build
   only:

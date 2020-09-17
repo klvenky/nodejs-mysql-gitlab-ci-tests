@@ -12,4 +12,7 @@ const insertQuery = `
   VALUES("3", "Test")
   VALUES("4", "Project")
 `;
+// Connect to the database which runs on localhost in CI mode
 // Run the above two queries to insert dummy data at test run time.
+// Query this table
+// mysql://root@localhost:3306/ccart
