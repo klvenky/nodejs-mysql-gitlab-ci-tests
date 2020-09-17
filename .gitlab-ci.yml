@@ -1,9 +1,9 @@
-# services:
-#   - mysql
+services:
+  - mysql
 
-# variables:
-#   MYSQL_DATABASE: test_database
-#   MYSQL_ALLOW_EMPTY_PASSWORD: true
+variables:
+  MYSQL_DATABASE: test_database
+  MYSQL_ALLOW_EMPTY_PASSWORD: true
 stages:
   - build
   - test
@@ -13,14 +13,14 @@ build:
     refs:
       - master
   image: git.convertcart.com:2375/ccart/node-12-alpine-docker:latest
-  # cache:
-  #   key: "$CI_COMMIT_REF_SLUG"
-  #   paths:
-  #     - .yarn
+  cache:
+    key: "$CI_COMMIT_REF_SLUG"
+    paths:
+      - .yarn
   script:
-    # - yarn config set cache-folder $PWD/.yarn
-    # - export FROM_GIT_URL="git.ssh://git"
-    # - export TO_GIT_URL="https://gitlab-ci-token:$CI_JOB_TOKEN"
-    # - sed -i "s#$FROM_GIT_URL#$TO_GIT_URL#" package.json yarn.lock
+    - yarn config set cache-folder $PWD/.yarn
+    - export FROM_GIT_URL="git.ssh://git"
+    - export TO_GIT_URL="https://gitlab-ci-token:$CI_JOB_TOKEN"
+    - sed -i "s#$FROM_GIT_URL#$TO_GIT_URL#" package.json yarn.lock
     - yarn --ignore-optional --pure-lockfile --prefer-offline
     - yarn test
