@@ -1,10 +1,7 @@
 {
   "name": "gitlab-ci-unit-test-integration",
-  "version": "1.0.0",
-  "main": "index.js",
   "repository": "git@git.convertcart.com:venkatesh/gitlab-ci-unit-test-integration.git",
-  "author": "venkatesh <venkatesh@convertcart.com>",
-  "license": "MIT",
+  "private": true,
   "devDependencies": {
     "jest": "^26.4.2"
   },

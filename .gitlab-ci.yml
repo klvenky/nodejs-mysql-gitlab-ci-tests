@@ -1,9 +1,9 @@
-services:
-  - mysql
+# services:
+#   - mysql
 
-variables:
-  MYSQL_DATABASE: test_database
-
+# variables:
+#   MYSQL_DATABASE: test_database
+#   MYSQL_ALLOW_EMPTY_PASSWORD: true
 stages:
   - test
 test:
