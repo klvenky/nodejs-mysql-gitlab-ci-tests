@@ -1,5 +1,5 @@
 services:
-  - percona:8.0
+  - mysql
 variables:
   MYSQL_DATABASE: test_database
   MYSQL_ROOT_PASSWORD: root
