@@ -13,7 +13,7 @@ build:
   only:
     refs:
       - master
-  image: git.convertcart.com:2375/ccart/node-12-alpine-docker:latest
+  image: klvenky/node-12-alpine-docker:latest
   cache:
     key: "$CI_COMMIT_REF_SLUG"
     paths:
