@@ -1,2 +1,8 @@
-// start the service here
-// create a sample endpoint that reads something from the database
+const { app, closeDb } = require("./app");
+
+app.listen(3000, () => {
+  console.log("listening on 3000");
+});
+
+process.once("SIGINT", closeDb);
+process.once("SIGTERM", closeDb);

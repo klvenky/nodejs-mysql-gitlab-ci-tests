@@ -1,17 +1,28 @@
-function add(a, b) {
-  return a + b;
-}
+const request = require("supertest");
 
-describe("Unit Tests run", function () {
-  beforeAll(function () {
-    // initialize the server & db here
-    console.log("in before all");
+const { app, closeDb } = require("./app");
+
+let server;
+
+beforeAll((done) => {
+  server = app.listen(4000, (err) => {
+    if (err) return done(err);
+    console.log('init done');
+    return done();
   });
-  afterAll(function () {
-    // close the app server & db here
-    console.log("in after all");
-  });
-  test("sample test", function () {
-    expect(add(1, 2)).toEqual(3);
+});
+
+afterAll(async function (done) {
+  await closeDb();
+  return done();
+});
+
+describe("GET api for block list", () => {
+  test("SUCCESS RESULT", async () => {
+    const response = await request(app).get(`/get`).send();
+    expect(response.status).toEqual(200);
+    expect(response.body.length).toBeGreaterThan(0);
+    // expect(response.body).toHaveProperty("count");
+    // expect(response.body).toHaveProperty("rows");
   });
 });
