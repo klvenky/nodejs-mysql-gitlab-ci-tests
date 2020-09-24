@@ -1,5 +1,5 @@
 services:
-  - mysql
+  - mysql:8.0
 variables:
   MYSQL_DATABASE: test_database
   MYSQL_ROOT_PASSWORD: root
@@ -8,6 +8,8 @@ stages:
   - build
 build:
   stage: build
+  services:
+    - mysql
   only:
     refs:
       - master
