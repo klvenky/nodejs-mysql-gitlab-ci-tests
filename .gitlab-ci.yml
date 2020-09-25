@@ -1,9 +1,8 @@
 services:
-  - mysql:8.0
+  - percona:8.0.16-7-centos
 variables:
-  MYSQL_DATABASE: test_database
+  MYSQL_DATABASE: test
   MYSQL_ROOT_PASSWORD: root
-
 stages:
   - build
 build:

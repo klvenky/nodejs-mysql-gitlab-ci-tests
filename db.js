@@ -7,10 +7,12 @@ let initDone = false;
 
 // Variable will be available in test mode
 const isCITest = !!process.env.CI_JOB_STAGE;
-console.log("Running in CI ---", isCITest);
+const mySqlHost = isCITest ? "mysql" : "localhost";
+console.log("Running in CI ---", mySqlHost);
+
 const init = async () => {
   conn = await initMysqlConn(
-    `mysql://root:root@${isCITest ? "mysql" : "localhost"}:3306/test_database`,
+    `mysql://root:root@${mySqlHost}:3306/test_database`,
     "./schema.sql"
   );
   db.employee = new Employee(conn);
