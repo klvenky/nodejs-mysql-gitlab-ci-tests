@@ -1,7 +1,7 @@
 services:
   - name: mysql:8
     alias: mysql
-    command: ['--default-authentication-plugin=mysql_native_password']
+    command: ['default-authentication-plugin=mysql_native_password']
 
 variables:
   MYSQL_DATABASE: test
