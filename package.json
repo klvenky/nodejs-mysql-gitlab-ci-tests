@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "nodemon index.js",
-    "test": "jest --coverage --forceExit"
+    "test": "jest --coverage --detectOpenHandles --forceExit"
   },
   "dependencies": {
     "express": "^4.17.1",

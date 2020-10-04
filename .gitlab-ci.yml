@@ -16,12 +16,7 @@ build:
     refs:
       - master
   image: klvenky/node-12-alpine-docker:latest
-  cache:
-    key: "$CI_COMMIT_REF_SLUG"
-    paths:
-      - .yarn
   script:
-    - yarn config set cache-folder $PWD/.yarn
     - export FROM_GIT_URL="git.ssh://git"
     - export TO_GIT_URL="https://gitlab-ci-token:$CI_JOB_TOKEN"
     - sed -i "s#$FROM_GIT_URL#$TO_GIT_URL#" package.json yarn.lock

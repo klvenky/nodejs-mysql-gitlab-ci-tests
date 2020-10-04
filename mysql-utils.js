@@ -82,6 +82,7 @@ async function initMysqlConn(connStr, schemaFile) {
   const getRows = (sql, params) => queryPr(sql, params);
   const close = async () => {
     console.log("closing conn");
+    console.log("---", myPool.end);
     await myPool.end();
   };
   return {
