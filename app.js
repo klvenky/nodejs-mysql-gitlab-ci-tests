@@ -21,6 +21,5 @@ async function closeDb() {
   const closeFunc = mdb.getClose();
   console.log("got close function -> ", closeFunc);
   await closeFunc();
-  console.log("---");
 }
 module.exports = { app, closeDb };
