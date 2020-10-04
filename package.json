@@ -3,6 +3,7 @@
   "repository": "git@git.convertcart.com:venkatesh/gitlab-ci-unit-test-integration.git",
   "private": true,
   "devDependencies": {
+    "supertest": "^4.0.2",
     "jest": "^26.4.2"
   },
   "scripts": {
@@ -11,7 +12,6 @@
   },
   "dependencies": {
     "express": "^4.17.1",
-    "mysql": "^2.18.1",
-    "supertest": "^4.0.2"
+    "mysql": "^2.18.1"
   }
 }
