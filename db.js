@@ -3,6 +3,7 @@ const Employee = require("./employee");
 
 let db = {};
 let initDone = false;
+let conn;
 
 // Variable will be available in test mode
 const isCITest = !!process.env.CI_JOB_STAGE;
@@ -22,7 +23,6 @@ function getClose() {
   return async () => {
     console.log("in db close");
     await conn.close();
-    console.log("close done");
   };
 }
 
