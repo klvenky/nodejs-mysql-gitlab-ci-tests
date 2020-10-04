@@ -21,9 +21,11 @@ const init = async () => {
 
 function getClose() {
   return async () => {
-    console.log("->> ", conn);
+    console.log("conn ->> ", conn);
     console.log("in db close");
-    await conn.close();
+    if (conn) {
+      await conn.close();
+    }
   };
 }
 

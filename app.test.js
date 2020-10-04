@@ -20,9 +20,16 @@ afterAll(async function (done) {
 });
 
 describe("GET api for block list", () => {
-  test("SUCCESS RESULT", async () => {
-    const response = await request(app).get(`/get`).send();
-    expect(response.status).toEqual(200);
-    expect(response.body.length).toBeGreaterThan(0);
+  it("SUCCESS RESULT", async () => {
+    request(app)
+      .get("/get")
+      .end(function (err, response) {
+        console.log("--> ", response.body);
+        expect(response.status).toEqual(200);
+        expect(response.body.length).toBeGreaterThan(0);
+        // response.done();
+        // return response;
+        // done();
+      });
   });
 });
