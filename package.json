@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "nodemon index.js",
-    "test": "jest --coverage  --forceExit"
+    "test": "jest --coverage  --runInBand"
   },
   "dependencies": {
     "express": "^4.17.1",
