@@ -1,9 +1,10 @@
 const express = require("express");
 const MyDb = require("./db");
 
+let mdb;
 async function getEmployee(_req, res) {
   if (!MyDb.initDone) await MyDb.init();
-  const mdb = require("./db");
+  if (!mdb) mdb = require("./db");
   const employees = await mdb.db.employee.load();
   res.json(employees);
 }
@@ -13,8 +14,13 @@ app.get("/get", getEmployee);
 
 async function closeDb() {
   console.log("app.closedb.called");
-  if (MyDb.close) {
-    await MyDb.close();
-  }
+
+  if (!mdb) mdb = require("./db");
+  else console.log("---", mdb);
+
+  const closeFunc = mdb.getClose();
+  console.log("got close function -> ", closeFunc);
+  await closeFunc();
+  console.log("---");
 }
 module.exports = { app, closeDb };

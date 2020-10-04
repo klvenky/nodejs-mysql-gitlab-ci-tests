@@ -68,7 +68,7 @@ async function initMysqlConn(connStr, schemaFile) {
   if (schemaFile) await constSQL(modConnStr, schemaFile);
   const myPool = mysql.createPool(modConnStr);
   const queryPr = (sql, params = []) => {
-    console.log(`SQL: ${cleanSQL(sql)}`, { params });
+    // console.log(`SQL: ${cleanSQL(sql)}`, { params });
     return new Promise((resolve, reject) => {
       myPool.query(sql, params, (error, rowsOrResult, fields) => {
         if (error) reject(error);
@@ -80,18 +80,13 @@ async function initMysqlConn(connStr, schemaFile) {
   };
   const query = (sql, params) => queryPr(sql, params);
   const getRows = (sql, params) => queryPr(sql, params);
-  const stream = (sql, params) => {
-    console.log(`SQL: ${cleanSQL(sql)}`);
-    return myPool.query(sql, params).stream();
-  };
-  const close = () => {
+  const close = async () => {
     console.log("closing conn");
-    myPool.releaseConnection();
+    await myPool.end();
   };
   return {
     query,
     getRows,
-    stream,
     close,
   };
 }

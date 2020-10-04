@@ -2,7 +2,6 @@ const { initMysqlConn } = require("./mysql-utils");
 const Employee = require("./employee");
 
 let db = {};
-let close;
 let initDone = false;
 
 // Variable will be available in test mode
@@ -16,10 +15,15 @@ const init = async () => {
     "./schema.sql"
   );
   db.employee = new Employee(conn);
-  close = async () => {
-    await conn.close();
-  };
   initDone = true;
 };
 
-module.exports = { db, close, init, initDone };
+function getClose() {
+  return async () => {
+    console.log("in db close");
+    await conn.close();
+    console.log("close done");
+  };
+}
+
+module.exports = { db, getClose, init, initDone };

@@ -7,14 +7,16 @@ let server;
 beforeAll((done) => {
   server = app.listen(4000, (err) => {
     if (err) return done(err);
-    console.log('init done');
+    console.log("init done");
     return done();
   });
 });
 
 afterAll(async function (done) {
   await closeDb();
-  return done();
+  setTimeout(() => {
+    done();
+  }, 3000);
 });
 
 describe("GET api for block list", () => {
@@ -22,7 +24,5 @@ describe("GET api for block list", () => {
     const response = await request(app).get(`/get`).send();
     expect(response.status).toEqual(200);
     expect(response.body.length).toBeGreaterThan(0);
-    // expect(response.body).toHaveProperty("count");
-    // expect(response.body).toHaveProperty("rows");
   });
 });

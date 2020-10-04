@@ -1,8 +1,12 @@
 const { app, closeDb } = require("./app");
 
-app.listen(3000, () => {
+const server = app.listen(3000, () => {
   console.log("listening on 3000");
 });
 
-process.once("SIGINT", closeDb);
-process.once("SIGTERM", closeDb);
+async function stopServer() {
+  await closeDb();
+  server.close();
+}
+process.once("SIGINT", stopServer);
+process.once("SIGTERM", stopServer);
