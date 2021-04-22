@@ -1,34 +1,29 @@
-const { initMysqlConn } = require("./mysql-utils");
+const InitMysqlConn = require("./mysql-utils");
 const Employee = require("./employee");
-
-let db = {};
-let initDone = false;
-let conn;
 
 // Variable will be available in test mode
 const isCITest = !!process.env.CI_JOB_STAGE;
 const mySqlHost = isCITest ? "mysql" : "localhost";
-console.log("Running in CI ---", mySqlHost);
-
-const databaseName = isCITest ? "test" : "localdb";
-
-const init = async () => {
-  conn = await initMysqlConn(
-    `mysql://root:root@${mySqlHost}:3306/${databaseName}`,
-    "./schema.sql"
-  );
-  db.employee = new Employee(conn);
-  initDone = true;
-};
-
-function getClose() {
-  return async () => {
-    console.log("conn ->> ", conn);
-    console.log("in db close");
-    if (conn) {
-      await conn.close();
-    }
-  };
+if (isCITest) {
+  console.log("Running in CI ---", mySqlHost);
 }
 
-module.exports = { db, getClose, init, initDone };
+const databaseName = isCITest ? "test" : "localdb";
+const connectionUrl = `mysql://root:root@${mySqlHost}:3306/${databaseName}`;
+
+class Db {
+  static connection;
+  static employee;
+  static async init() {
+    Db.connection = await InitMysqlConn(connectionUrl, "./schema.sql");
+    Db.employee = new Employee(Db.connection);
+  }
+  static async teardown() {
+    console.log('teardown');
+    await Db.connection.teardown();
+    Db.connection = null;
+    Db.employee = null;
+  }
+}
+
+module.exports = Db;

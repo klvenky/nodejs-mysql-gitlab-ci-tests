@@ -7,29 +7,25 @@ let server;
 beforeAll((done) => {
   server = app.listen(4000, (err) => {
     if (err) return done(err);
-    console.log("init done");
     return done();
   });
 });
 
 afterAll(async function (done) {
-  await closeDb();
-  setTimeout(() => {
+  await closeDb().then(() => {
     done();
-  }, 3000);
+  });
 });
 
 describe("GET api for block list", () => {
-  it("SUCCESS RESULT", async () => {
+  it("SUCCESS RESULT", async (done) => {
     request(app)
       .get("/get")
       .end(function (err, response) {
-        console.log("--> ", response.body);
+        console.log("got.response -> ", JSON.stringify(response.body));
         expect(response.status).toEqual(200);
         expect(response.body.length).toBeGreaterThan(0);
-        // response.done();
-        // return response;
-        // done();
+        done();
       });
   });
 });

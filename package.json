@@ -3,12 +3,12 @@
   "repository": "git@git.convertcart.com:venkatesh/gitlab-ci-unit-test-integration.git",
   "private": true,
   "devDependencies": {
-    "supertest": "^4.0.2",
-    "jest": "^26.4.2"
+    "jest": "^26.4.2",
+    "supertest": "^4.0.2"
   },
   "scripts": {
     "dev": "nodemon index.js",
-    "test": "jest --coverage  --runInBand"
+    "test": "jest --detectOpenHandles"
   },
   "dependencies": {
     "express": "^4.17.1",

@@ -80,15 +80,14 @@ async function initMysqlConn(connStr, schemaFile) {
   };
   const query = (sql, params) => queryPr(sql, params);
   const getRows = (sql, params) => queryPr(sql, params);
-  const close = async () => {
-    console.log("closing conn");
-    console.log("---", myPool.end);
+  const teardown = async () => {
     await myPool.end();
+    console.log("mysql.connection.end");
   };
   return {
     query,
     getRows,
-    close,
+    teardown,
   };
 }
-module.exports = { initMysqlConn };
+module.exports = initMysqlConn;
