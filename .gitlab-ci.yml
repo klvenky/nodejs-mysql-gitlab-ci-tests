@@ -1,5 +1,5 @@
 services:
-  - name: mysql:8
+  - name: percona:8.0.16-7-centos
     alias: mysql
     command: ['--default-authentication-plugin=mysql_native_password']
 
