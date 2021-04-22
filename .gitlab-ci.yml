@@ -14,8 +14,8 @@ build:
     - mysql
   only:
     refs:
-      - master
-  image: klvenky/node-12-alpine-docker:latest
+      - main
+  image: klvenky/node-14-alpine-docker:latest
   script:
     - export FROM_GIT_URL="git.ssh://git"
     - export TO_GIT_URL="https://gitlab-ci-token:$CI_JOB_TOKEN"
