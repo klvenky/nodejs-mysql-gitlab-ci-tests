@@ -18,11 +18,10 @@ class Db {
     Db.connection = await InitMysqlConn(connectionUrl, "./schema.sql");
     Db.employee = new Employee(Db.connection);
   }
-  static async teardown() {
-    console.log('teardown');
-    await Db.connection.teardown();
-    Db.connection = null;
-    Db.employee = null;
+  static async end() {
+    await Db.connection.closeConnection();
+    // Db.connection = null;
+    // Db.employee = null;
   }
 }
 

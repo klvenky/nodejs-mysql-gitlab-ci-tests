@@ -14,6 +14,6 @@ app.get("/get", getEmployee);
 
 async function closeDb() {
   if (!MySqlDb) MySqlDb = require("./db");
-  await MySqlDb.teardown();
+  await MySqlDb.end();
 }
 module.exports = { app, closeDb };

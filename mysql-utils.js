@@ -52,7 +52,7 @@ function fixRows(rows, fields) {
   });
 }
 
-const cleanSQL = (sql) => sql.replace(/[\s\n]+/g, " ").trim();
+const cleanSQL = (sql) => sql.replace(/[\s\t\n]+/g, " ").trim();
 
 // default mysql node js client charset is UTF8_GENERAL_CI, which doesn't support
 // special unicode characters, so add utf8mb4 charset to the connection string
@@ -66,9 +66,11 @@ async function initMysqlConn(connStr, schemaFile) {
   const modConnStr = addCharset(connStr);
   await createDatabase(modConnStr);
   if (schemaFile) await constSQL(modConnStr, schemaFile);
-  const myPool = mysql.createPool(modConnStr);
+  let myPool = mysql.createPool(modConnStr);
   const queryPr = (sql, params = []) => {
-    // console.log(`SQL: ${cleanSQL(sql)}`, { params });
+    if (process.env.NODE_ENV !== "production") {
+      console.log(`SQL: ${cleanSQL(sql)}`);
+    }
     return new Promise((resolve, reject) => {
       myPool.query(sql, params, (error, rowsOrResult, fields) => {
         if (error) reject(error);
@@ -80,14 +82,18 @@ async function initMysqlConn(connStr, schemaFile) {
   };
   const query = (sql, params) => queryPr(sql, params);
   const getRows = (sql, params) => queryPr(sql, params);
-  const teardown = async () => {
-    await myPool.end();
-    console.log("mysql.connection.end");
+  const closeConnection = async () => {
+    return new Promise((resolve, reject) => {
+      myPool.end((error) => {
+        if (error) reject(error);
+        resolve();
+      });
+    });
   };
   return {
     query,
     getRows,
-    teardown,
+    closeConnection,
   };
 }
 module.exports = initMysqlConn;

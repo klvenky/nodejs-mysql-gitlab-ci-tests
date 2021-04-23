@@ -13,7 +13,9 @@ beforeAll((done) => {
 
 afterAll(async function (done) {
   await closeDb().then(() => {
-    done();
+    server.close((e) => {
+      done(e);
+    });
   });
 });
 
@@ -22,7 +24,6 @@ describe("GET api for block list", () => {
     request(app)
       .get("/get")
       .end(function (err, response) {
-        console.log("got.response -> ", JSON.stringify(response.body));
         expect(response.status).toEqual(200);
         expect(response.body.length).toBeGreaterThan(0);
         done();
