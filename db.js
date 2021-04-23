@@ -1,7 +1,7 @@
 const InitMysqlConn = require("./mysql-utils");
 const Employee = require("./employee");
 
-// Variable will be available in test mode
+// CI_JOB_STAGE variable will be available in Gitlab CI
 const isCITest = !!process.env.CI_JOB_STAGE;
 const mySqlHost = isCITest ? "mysql" : "localhost";
 if (isCITest) {
@@ -20,8 +20,6 @@ class Db {
   }
   static async end() {
     await Db.connection.closeConnection();
-    // Db.connection = null;
-    // Db.employee = null;
   }
 }
 

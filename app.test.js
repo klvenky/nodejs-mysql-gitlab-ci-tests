@@ -1,10 +1,12 @@
 const request = require("supertest");
 
-const { app, closeDb } = require("./app");
+const app= require("./app");
+const Db = require("./db");
 
 let server;
 
-beforeAll((done) => {
+beforeAll(async (done) => {
+  await Db.init();
   server = app.listen(4000, (err) => {
     if (err) return done(err);
     return done();
@@ -12,7 +14,7 @@ beforeAll((done) => {
 });
 
 afterAll(async function (done) {
-  await closeDb().then(() => {
+  await Db.end().then(() => {
     server.close((e) => {
       done(e);
     });
