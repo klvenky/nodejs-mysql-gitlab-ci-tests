@@ -1,7 +1,7 @@
 services:
   - name: percona:8.0.16-7-centos
     alias: mysql
-    command: ['--default-authentication-plugin=mysql_native_password']
+    command: ["--default-authentication-plugin=mysql_native_password"]
 
 variables:
   MYSQL_DATABASE: test
@@ -17,6 +17,7 @@ build:
       - main
   image: klvenky/node-14-alpine-docker:latest
   script:
+    - echo "SELECT 'OK';" | mysql --user=root --password="$MYSQL_ROOT_PASSWORD" --host=mysql "$MYSQL_DATABASE"
     - export FROM_GIT_URL="git.ssh://git"
     - export TO_GIT_URL="https://gitlab-ci-token:$CI_JOB_TOKEN"
     - sed -i "s#$FROM_GIT_URL#$TO_GIT_URL#" package.json yarn.lock

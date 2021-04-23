@@ -8,7 +8,8 @@ if (isCITest) {
   console.log("Running in CI ---", mySqlHost);
 }
 
-const databaseName = isCITest ? "test" : "localdb";
+const databaseName = "employee";
+
 const connectionUrl = `mysql://root:root@${mySqlHost}:3306/${databaseName}`;
 
 class Db {
