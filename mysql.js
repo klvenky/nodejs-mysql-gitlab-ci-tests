@@ -4,12 +4,8 @@ const Employee = require("./employee");
 // CI_JOB_STAGE variable will be available in Gitlab CI
 const isCITest = !!process.env.CI_JOB_STAGE;
 const mySqlHost = isCITest ? "mysql" : "localhost";
-if (isCITest) {
-  console.log("Running in CI ---", mySqlHost);
-}
 
 const databaseName = "employee";
-
 const connectionUrl = `mysql://root:root@${mySqlHost}:3306/${databaseName}`;
 
 class Db {

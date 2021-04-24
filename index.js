@@ -1,5 +1,5 @@
 const app = require("./app");
-const Db = require("./db");
+const Db = require("./mysql");
 
 let server;
 async function startServer() {
