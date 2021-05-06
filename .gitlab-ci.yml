@@ -1,5 +1,5 @@
 services:
-  - name: mysql:latest
+  - name: percona:8.0.16-7-centos
     alias: mysql
     command: ["--default-authentication-plugin=mysql_native_password"]
 
@@ -10,8 +10,6 @@ stages:
   - build
 build:
   stage: build
-  services:
-    - mysql
   only:
     refs:
       - main
